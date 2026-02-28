@@ -1,0 +1,255 @@
+{
+  "Procedure": {
+    "prefix": ["proc", "procedure"],
+    "body": [
+      "Procedure${1: }${2:MyProcedure}(${3:})",
+      "\t$0",
+      "EndProcedure"
+    ],
+    "description": "Define a new Procedure"
+  },
+  "ProcedureWithReturn": {
+    "prefix": ["procr", "procedure-return"],
+    "body": [
+      "Procedure.${1:i} ${2:MyProcedure}(${3:})",
+      "\t$0",
+      "\tProcedureReturn ${4:0}",
+      "EndProcedure"
+    ],
+    "description": "Procedure with return value"
+  },
+  "If": {
+    "prefix": "if",
+    "body": [
+      "If ${1:condition}",
+      "\t$0",
+      "EndIf"
+    ],
+    "description": "If block"
+  },
+  "IfElse": {
+    "prefix": "ife",
+    "body": [
+      "If ${1:condition}",
+      "\t$2",
+      "Else",
+      "\t$0",
+      "EndIf"
+    ],
+    "description": "If/Else block"
+  },
+  "For": {
+    "prefix": "for",
+    "body": [
+      "For ${1:i} = ${2:0} To ${3:10}",
+      "\t$0",
+      "Next ${1:i}"
+    ],
+    "description": "For/Next loop"
+  },
+  "ForStep": {
+    "prefix": "fors",
+    "body": [
+      "For ${1:i} = ${2:0} To ${3:10} Step ${4:1}",
+      "\t$0",
+      "Next ${1:i}"
+    ],
+    "description": "For/Next loop with Step"
+  },
+  "ForEach": {
+    "prefix": "foreach",
+    "body": [
+      "ForEach ${1:MyList()}",
+      "\t$0",
+      "Next"
+    ],
+    "description": "ForEach loop"
+  },
+  "While": {
+    "prefix": "while",
+    "body": [
+      "While ${1:condition}",
+      "\t$0",
+      "Wend"
+    ],
+    "description": "While/Wend loop"
+  },
+  "Repeat": {
+    "prefix": "repeat",
+    "body": [
+      "Repeat",
+      "\t$0",
+      "Until ${1:condition}"
+    ],
+    "description": "Repeat/Until loop"
+  },
+  "RepeatForever": {
+    "prefix": "forever",
+    "body": [
+      "Repeat",
+      "\t$0",
+      "ForEver"
+    ],
+    "description": "Infinite Repeat/ForEver loop"
+  },
+  "Select": {
+    "prefix": "select",
+    "body": [
+      "Select ${1:variable}",
+      "\tCase ${2:value1}",
+      "\t\t$0",
+      "\tDefault",
+      "\t\t",
+      "EndSelect"
+    ],
+    "description": "Select/EndSelect block"
+  },
+  "Structure": {
+    "prefix": "struct",
+    "body": [
+      "Structure ${1:MyStructure}",
+      "\t${2:field}.${3:i}",
+      "\t$0",
+      "EndStructure"
+    ],
+    "description": "Structure definition"
+  },
+  "Module": {
+    "prefix": "module",
+    "body": [
+      "DeclareModule ${1:MyModule}",
+      "\t; Public declarations",
+      "\t$2",
+      "EndDeclareModule",
+      "",
+      "Module ${1:MyModule}",
+      "\t$0",
+      "EndModule"
+    ],
+    "description": "Module with DeclareModule"
+  },
+  "Interface": {
+    "prefix": "interface",
+    "body": [
+      "Interface ${1:IMyInterface}",
+      "\t${2:Method}(${3:})",
+      "\t$0",
+      "EndInterface"
+    ],
+    "description": "Interface definition"
+  },
+  "Macro": {
+    "prefix": "macro",
+    "body": [
+      "Macro ${1:MyMacro}(${2:})",
+      "\t$0",
+      "EndMacro"
+    ],
+    "description": "Macro definition"
+  },
+  "NewList": {
+    "prefix": "newlist",
+    "body": ["NewList ${1:MyList}.${2:i}()"],
+    "description": "Declare a new linked list"
+  },
+  "NewMap": {
+    "prefix": "newmap",
+    "body": ["NewMap ${1:MyMap}.${2:i}()"],
+    "description": "Declare a new map"
+  },
+  "Dim": {
+    "prefix": "dim",
+    "body": ["Dim ${1:MyArray}.${2:i}(${3:9})"],
+    "description": "Declare an array"
+  },
+  "OpenWindow": {
+    "prefix": "window",
+    "body": [
+      "If OpenWindow(${1:0}, ${2:0}, ${3:0}, ${4:800}, ${5:600}, \"${6:My Window}\", #PB_Window_SystemMenu | #PB_Window_ScreenCentered)",
+      "\t$0",
+      "\tRepeat",
+      "\t\tSelect WaitWindowEvent()",
+      "\t\t\tCase #PB_Event_CloseWindow",
+      "\t\t\t\tBreak",
+      "\t\tEndSelect",
+      "\tForEver",
+      "EndIf"
+    ],
+    "description": "Open a window with event loop"
+  },
+  "OpenConsole": {
+    "prefix": "console",
+    "body": [
+      "OpenConsole(\"${1:My Program}\")",
+      "$0",
+      "PrintN(\"Press Enter to exit...\")",
+      "Input()",
+      "CloseConsole()"
+    ],
+    "description": "Open a console window"
+  },
+  "CompilerIf Windows": {
+    "prefix": "cifwin",
+    "body": [
+      "CompilerIf #PB_Compiler_OS = #PB_OS_Windows",
+      "\t$0",
+      "CompilerEndIf"
+    ],
+    "description": "CompilerIf for Windows"
+  },
+  "CompilerIf macOS": {
+    "prefix": "cifmac",
+    "body": [
+      "CompilerIf #PB_Compiler_OS = #PB_OS_MacOS",
+      "\t$0",
+      "CompilerEndIf"
+    ],
+    "description": "CompilerIf for macOS"
+  },
+  "CompilerIf Linux": {
+    "prefix": "ciflin",
+    "body": [
+      "CompilerIf #PB_Compiler_OS = #PB_OS_Linux",
+      "\t$0",
+      "CompilerEndIf"
+    ],
+    "description": "CompilerIf for Linux"
+  },
+  "CompilerIf else": {
+    "prefix": "cifelse",
+    "body": [
+      "CompilerIf ${1:condition}",
+      "\t$2",
+      "CompilerElse",
+      "\t$0",
+      "CompilerEndIf"
+    ],
+    "description": "CompilerIf/CompilerElse block"
+  },
+  "DataSection": {
+    "prefix": "data",
+    "body": [
+      "DataSection",
+      "\t${1:Label}:",
+      "\t\tData.${2:i} ${3:0}",
+      "\t\t$0",
+      "EndDataSection"
+    ],
+    "description": "DataSection block"
+  },
+  "Debug": {
+    "prefix": "dbg",
+    "body": ["Debug ${1:\"message: \"} + Str(${2:variable})"],
+    "description": "Debug output"
+  },
+  "Protected variables": {
+    "prefix": "prot",
+    "body": ["Protected ${1:variable}.${2:i}"],
+    "description": "Protected variable declaration"
+  },
+  "Global variable": {
+    "prefix": "glob",
+    "body": ["Global ${1:variable}.${2:i}"],
+    "description": "Global variable declaration"
+  }
+}

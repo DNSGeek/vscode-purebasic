@@ -1,0 +1,180 @@
+{
+  "name": "purebasic",
+  "displayName": "PureBasic",
+  "description": "PureBasic language support for Visual Studio Code",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DNSGeek/vscode-purebasic.git"
+  },
+  "version": "0.1.0",
+  "publisher": "DNSGeek",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Formatters"
+  ],
+  "keywords": ["purebasic", "basic", "pb"],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "icon": "icon.png",
+  "contributes": {
+    "languages": [
+      {
+        "id": "purebasic",
+        "aliases": ["PureBasic", "purebasic", "pb"],
+        "extensions": [".pb", ".pbi", ".pbf", ".pbp"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/purebasic-light.svg",
+          "dark": "./icons/purebasic-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "purebasic",
+        "scopeName": "source.purebasic",
+        "path": "./syntaxes/purebasic.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "purebasic",
+        "path": "./snippets/purebasic.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "PureBasic",
+      "properties": {
+        "purebasic.compilerPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the PureBasic compiler executable (pbcompiler / pbcompiler.exe)"
+        },
+        "purebasic.compilerArgs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [],
+          "description": "Extra arguments to pass to the compiler"
+        },
+        "purebasic.enableLinting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable basic linting / error detection"
+        },
+        "purebasic.formatOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Auto-format code on save"
+        },
+        "purebasic.indentSize": {
+          "type": "number",
+          "default": 2,
+          "description": "Number of spaces per indent level"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "purebasic.compile",
+        "title": "PureBasic: Compile",
+        "icon": "$(play)"
+      },
+      {
+        "command": "purebasic.compileRun",
+        "title": "PureBasic: Compile & Run",
+        "icon": "$(run)"
+      },
+      {
+        "command": "purebasic.formatDocument",
+        "title": "PureBasic: Format Document"
+      },
+      {
+        "command": "purebasic.showOutput",
+        "title": "PureBasic: Show Output"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "purebasic.compileRun",
+          "when": "resourceLangId == purebasic",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "purebasic.compile",
+          "when": "resourceLangId == purebasic",
+          "group": "purebasic"
+        },
+        {
+          "command": "purebasic.compileRun",
+          "when": "resourceLangId == purebasic",
+          "group": "purebasic"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "purebasic.compileRun",
+        "key": "f5",
+        "when": "resourceLangId == purebasic"
+      },
+      {
+        "command": "purebasic.compile",
+        "key": "ctrl+f5",
+        "when": "resourceLangId == purebasic"
+      }
+    ],
+    "problemMatchers": [
+      {
+        "name": "pbcompiler",
+        "owner": "purebasic",
+        "fileLocation": ["absolute"],
+        "pattern": {
+          "regexp": "^Error: (.+) Line (\\d+).*: (.+)$",
+          "file": 1,
+          "line": 2,
+          "message": 3
+        }
+      }
+    ],
+    "taskDefinitions": [
+      {
+        "type": "purebasic",
+        "required": ["task"],
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "The PureBasic task"
+          },
+          "file": {
+            "type": "string",
+            "description": "Source file to compile"
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^2.0.0"
+  }
+}

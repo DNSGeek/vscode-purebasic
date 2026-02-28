@@ -1,0 +1,30 @@
+{
+  "comments": {
+    "lineComment": ";"
+  },
+  "brackets": [
+    ["(", ")"],
+    ["[", "]"]
+  ],
+  "autoClosingPairs": [
+    { "open": "(", "close": ")" },
+    { "open": "[", "close": "]" },
+    { "open": "\"", "close": "\"", "notIn": ["string", "comment"] }
+  ],
+  "surroundingPairs": [
+    ["(", ")"],
+    ["[", "]"],
+    ["\"", "\""]
+  ],
+  "folding": {
+    "markers": {
+      "start": "^\\s*(Procedure|If|For|While|Repeat|Select|Structure|Interface|Macro|Module|DeclareModule|CompilerIf|With|DataSection|EnableExplicit)\\b",
+      "end": "^\\s*(EndProcedure|EndIf|Next|Wend|ForEver|Until|EndSelect|EndStructure|EndInterface|EndMacro|EndModule|EndDeclareModule|CompilerEndIf|EndWith|EndDataSection)\\b"
+    }
+  },
+  "indentationRules": {
+    "increaseIndentPattern": "^\\s*(Procedure|ProcedureDLL|ProcedureC|If|Else|ElseIf|For|ForEach|While|Repeat|Select|Case|Default|Structure|Interface|Macro|Module|DeclareModule|CompilerIf|CompilerElse|CompilerElseIf|With|DataSection)\\b.*$",
+    "decreaseIndentPattern": "^\\s*(EndProcedure|EndIf|Else|ElseIf|Next|Wend|ForEver|Until|EndSelect|Case|Default|EndStructure|EndInterface|EndMacro|EndModule|EndDeclareModule|CompilerEndIf|CompilerElse|CompilerElseIf|EndWith|EndDataSection)\\b.*$"
+  },
+  "wordPattern": "[a-zA-Z_][a-zA-Z0-9_]*"
+}

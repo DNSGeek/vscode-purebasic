@@ -1,0 +1,456 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "PureBasic",
+  "scopeName": "source.purebasic",
+  "fileTypes": [
+    ".pb",
+    ".pbi",
+    ".pbf",
+    ".pbp"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#compiler-directives"
+    },
+    {
+      "include": "#control-flow"
+    },
+    {
+      "include": "#declarations"
+    },
+    {
+      "include": "#builtins"
+    },
+    {
+      "include": "#pb-constants"
+    },
+    {
+      "include": "#user-constants"
+    },
+    {
+      "include": "#operators"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#labels"
+    },
+    {
+      "include": "#procedure-call"
+    },
+    {
+      "include": "#variables"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.semicolon.purebasic",
+          "match": ";.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.escaped.purebasic",
+          "begin": "~\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.purebasic",
+              "match": "\\\\[nt\"\\\\]"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.purebasic",
+          "begin": "\"",
+          "end": "\""
+        }
+      ]
+    },
+    "compiler-directives": {
+      "patterns": [
+        {
+          "name": "keyword.control.compiler.purebasic",
+          "match": "(?i)\\b(CompilerIf|CompilerElseIf|CompilerElse|CompilerEndIf|CompilerSelect|CompilerCase|CompilerDefault|CompilerEndSelect|CompilerError|CompilerWarning)\\b"
+        },
+        {
+          "name": "constant.language.compiler.purebasic",
+          "match": "\\b(#PB_Compiler_OS|#PB_OS_Windows|#PB_OS_Linux|#PB_OS_MacOS|#PB_Compiler_Processor|#PB_Processor_x86|#PB_Processor_x64|#PB_Processor_arm|#PB_Processor_arm64|#PB_Compiler_Date|#PB_Compiler_File|#PB_Compiler_Line|#PB_Compiler_Version|#PB_Compiler_Home|#PB_Compiler_IsMainFile|#PB_Compiler_Thread|#PB_Compiler_Unicode|#PB_Compiler_Debugger|#PB_Compiler_Backend|#PB_Compiler_ExecutableFormat|#PB_Compiler_Optimizer)\\b"
+        }
+      ]
+    },
+    "control-flow": {
+      "name": "keyword.control.purebasic",
+      "match": "(?i)\\b(If|Else|ElseIf|EndIf|Select|Case|Default|EndSelect|For|To|Step|Next|ForEach|While|Wend|Repeat|Until|ForEver|Break|Continue|Goto|Gosub|Return|End|Stop|FakeReturn|Import|ImportC|EndImport|IncludeFile|XIncludeFile|IncludeBinary|IncludePath|EnableExplicit|DisableExplicit|EnableASM|DisableASM|EnableDebugger|DisableDebugger)\\b"
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "name": "keyword.declaration.procedure.purebasic",
+          "match": "(?i)\\b(Procedure|ProcedureC|ProcedureDLL|ProcedureCDLL|EndProcedure|ProcedureReturn|Declare|DeclareC|DeclareDLL|DeclareCDLL|Prototype|PrototypeC|Macro|EndMacro|Structure|EndStructure|StructureUnion|EndStructureUnion|Interface|EndInterface|Extends|Module|EndModule|DeclareModule|EndDeclareModule|UseModule|UnuseModule|Enumeration|EndEnumeration)\\b"
+        },
+        {
+          "name": "keyword.declaration.variable.purebasic",
+          "match": "(?i)\\b(Define|Dim|ReDim|Global|Protected|Static|Shared|Threaded|NewList|NewMap|FreeList|FreeMap|DataSection|EndDataSection|Data|Read|Restore|Runtime)\\b"
+        },
+        {
+          "name": "keyword.other.purebasic",
+          "match": "(?i)\\b(With|EndWith|And|Or|Not|XOr|As|Align|OffsetOf|SizeOf|TypeOf|Swap|Bool|Debug|DebugLevel|CallDebugger)\\b"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "comment": "String functions",
+          "name": "support.function.string.purebasic",
+          "match": "(?i)\\b(StringByteLength|UnescapeString|ReplaceString|ReverseString|EscapeString|InsertString|RemoveString|FormatNumber|CountString|StringField|FindString|LCase|LTrim|Right|RTrim|Space|UCase|Ascii|Left|LSet|RSet|StrF|StrD|StrU|Trim|ValD|ValF|UTF8|Asc|Bin|Chr|Hex|Len|Mid|Str|Val)(?=\\s*\\()"
+        },
+        {
+          "comment": "Math functions",
+          "name": "support.function.math.purebasic",
+          "match": "(?i)\\b(IsInfinity|RandomData|RandomSeed|Infinity|Degree|Radian|Random|ACosH|ASinH|ATan2|ATanH|IsNaN|Log10|Round|ACos|ASin|ATan|CosH|IntQ|Sign|SinH|TanH|Abs|Cos|Exp|Int|Pow|Log|Mod|NaN|Sin|Sqr|Tan)(?=\\s*\\()"
+        },
+        {
+          "comment": "Memory functions",
+          "name": "support.function.memory.purebasic",
+          "match": "(?i)\\b(CompareMemoryString|MemoryStringLength|AllocateStructure|CopyMemoryString|ReAllocateMemory|AllocateMemory|CompareMemory|FreeStructure|CopyMemory|FillMemory|FreeMemory|MemorySize|MoveMemory|PeekA|PeekB|PeekC|PeekD|PeekI|PeekL|PeekW|PeekF|PeekQ|PeekS|PeekU|PokeA|PokeB|PokeC|PokeD|PokeI|PokeL|PokeQ|PokeW|PokeF|PokeS|PokeU)(?=\\s*\\()"
+        },
+        {
+          "comment": "File functions",
+          "name": "support.function.file.purebasic",
+          "match": "(?i)\\b(WriteUnicodeCharacter|ReadUnicodeCharacter|WriteAsciiCharacter|ReadAsciiCharacter|WriteStringFormat|FlushFileBuffers|ReadStringFormat|FileBuffersSize|WriteCharacter|ReadCharacter|TruncateFile|WriteInteger|WriteStringN|ReadInteger|WriteDouble|WriteString|CreateFile|ReadDouble|ReadString|WriteFloat|CloseFile|ReadFloat|WriteByte|WriteLong|WriteData|WriteQuad|WriteWord|FileSeek|OpenFile|ReadByte|ReadFile|ReadLong|ReadQuad|ReadData|ReadWord|FileID|IsFile|Eof|Loc|Lof)(?=\\s*\\()"
+        },
+        {
+          "comment": "FileSystem functions",
+          "name": "support.function.file.purebasic",
+          "match": "(?i)\\b(DirectoryEntryAttributes|GetTemporaryDirectory|GetCurrentDirectory|SetCurrentDirectory|DirectoryEntryDate|DirectoryEntryName|DirectoryEntryType|DirectoryEntrySize|NextDirectoryEntry|GetFileAttributes|SetFileAttributes|ExamineDirectory|GetExtensionPart|GetHomeDirectory|GetUserDirectory|CreateDirectory|DeleteDirectory|FinishDirectory|CopyDirectory|CheckFilename|GetFilePart|GetPathPart|IsDirectory|GetFileDate|SetFileDate|DeleteFile|RenameFile|CopyFile|FileSize)(?=\\s*\\()"
+        },
+        {
+          "comment": "Console functions",
+          "name": "support.function.console.purebasic",
+          "match": "(?i)\\b(EnableGraphicalConsole|WriteConsoleData|ReadConsoleData|ConsoleLocate|ConsoleCursor|ClearConsole|CloseConsole|ConsoleError|ConsoleTitle|ConsoleColor|OpenConsole|PrintN|RawKey|Inkey|Input|Print)(?=\\s*\\()"
+        },
+        {
+          "comment": "Date functions",
+          "name": "support.function.date.purebasic",
+          "match": "(?i)\\b(ConvertDate|FormatDate|DayOfWeek|DayOfYear|ParseDate|AddDate|DateUTC|Minute|Second|Month|Date|Year|Hour|Day)(?=\\s*\\()"
+        },
+        {
+          "comment": "Sort functions",
+          "name": "support.function.collection.purebasic",
+          "match": "(?i)\\b(SortStructuredArray|SortStructuredList|CustomSortArray|CustomSortList|RandomizeArray|RandomizeList|SortArray|SortList)(?=\\s*\\()"
+        },
+        {
+          "comment": "List functions",
+          "name": "support.function.collection.purebasic",
+          "match": "(?i)\\b(ChangeCurrentElement|PushListPosition|PreviousElement|PopListPosition|DeleteElement|InsertElement|SelectElement|FirstElement|SwapElements|CompareList|LastElement|NextElement|MoveElement|AddElement|MergeLists|ClearList|ListIndex|ResetList|SplitList|CopyList|FreeList|ListSize)(?=\\s*\\()"
+        },
+        {
+          "comment": "Map functions",
+          "name": "support.function.collection.purebasic",
+          "match": "(?i)\\b(DeleteMapElement|PushMapPosition|FindMapElement|NextMapElement|PopMapPosition|AddMapElement|CompareMap|ClearMap|ResetMap|CopyMap|FreeMap|MapSize|MapKey)(?=\\s*\\()"
+        },
+        {
+          "comment": "Array functions",
+          "name": "support.function.collection.purebasic",
+          "match": "(?i)\\b(CompareArray|ArraySize|CopyArray|FreeArray)(?=\\s*\\()"
+        },
+        {
+          "comment": "Gadget functions",
+          "name": "support.function.window.purebasic",
+          "match": "(?i)\\b(GetGadgetItemAttribute|SetGadgetItemAttribute|ExplorerComboGadget|CanvasVectorOutput|ExplorerListGadget|ExplorerTreeGadget|GetGadgetAttribute|GetGadgetItemColor|GetGadgetItemState|RemoveGadgetColumn|SetGadgetAttribute|SetGadgetItemColor|SetGadgetItemImage|SetGadgetItemState|ButtonImageGadget|GetGadgetItemData|GetGadgetItemText|ProgressBarGadget|SetGadgetItemData|SetGadgetItemText|UnbindGadgetEvent|ClearGadgetItems|CountGadgetItems|RemoveGadgetItem|ScrollAreaGadget|AddGadgetColumn|CloseGadgetList|ContainerGadget|GetActiveGadget|HyperLinkGadget|IPAddressGadget|ScrollBarGadget|SetActiveGadget|BindGadgetEvent|CalendarGadget|CheckBoxGadget|ComboBoxGadget|GetGadgetColor|GetGadgetState|ListIconGadget|ListViewGadget|OpenGadgetList|SetGadgetColor|SetGadgetState|ShortcutGadget|SplitterGadget|TrackBarGadget|AddGadgetItem|DisableGadget|GadgetToolTip|GetGadgetData|GetGadgetFont|GetGadgetText|SetGadgetData|SetGadgetFont|SetGadgetText|UseGadgetList|ButtonGadget|CanvasGadget|CanvasOutput|OpenGLGadget|EditorGadget|GadgetItemID|GadgetHeight|OptionGadget|ResizeGadget|StringGadget|FrameGadget|GadgetWidth|ImageGadget|PanelGadget|DateGadget|FreeGadget|GadgetType|HideGadget|SpinGadget|TextGadget|TreeGadget|MDIGadget|WebGadget|GadgetID|IsGadget|GadgetX|GadgetY)(?=\\s*\\()"
+        },
+        {
+          "comment": "Window functions",
+          "name": "support.function.window.purebasic",
+          "match": "(?i)\\b(RemoveKeyboardShortcut|AddKeyboardShortcut|SmartWindowRefresh|WindowVectorOutput|RemoveWindowTimer|SetWindowCallback|GetActiveWindow|SetActiveWindow|WaitWindowEvent|AddWindowTimer|GetWindowColor|GetWindowState|GetWindowTitle|SetWindowColor|SetWindowState|SetWindowTitle|DisableWindow|GetWindowData|SetWindowData|ResizeWindow|StickyWindow|WindowBounds|WindowHeight|WindowMouseX|WindowMouseY|WindowOutput|CloseWindow|EventGadget|EventWindow|WindowEvent|UnbindEvent|WindowWidth|EventwParam|EventlParam|EventTimer|HideWindow|OpenWindow|EventMenu|EventData|EventType|PostEvent|BindEvent|IsWindow|WindowID|WindowX|WindowY|Event)(?=\\s*\\()"
+        },
+        {
+          "comment": "Menu functions",
+          "name": "support.function.window.purebasic",
+          "match": "(?i)\\b(CreatePopupImageMenu|DisplayPopupMenu|GetMenuItemState|GetMenuTitleText|SetMenuItemState|SetMenuTitleText|CreateImageMenu|CreatePopupMenu|DisableMenuItem|GetMenuItemText|SetMenuItemText|UnbindMenuEvent|BindMenuEvent|CloseSubMenu|OpenSubMenu|CreateMenu|MenuHeight|MenuTitle|FreeMenu|HideMenu|MenuItem|MenuBar|IsMenu|MenuID)(?=\\s*\\()"
+        },
+        {
+          "comment": "2DDrawing functions",
+          "name": "support.function.drawing.purebasic",
+          "match": "(?i)\\b(DrawingBufferPixelFormat|CustomFilterCallback|ResetGradientColors|DrawingBufferPitch|EllipticalGradient|GrabDrawingImage|CircularGradient|DrawRotatedText|ConicalGradient|DrawAlphaImage|LinearGradient|CustomGradient|DrawingBuffer|GradientColor|BoxedGradient|StartDrawing|OutputHeight|UnclipOutput|DrawingFont|DrawingMode|StopDrawing|OutputDepth|OutputWidth|AlphaBlend|FrontColor|TextHeight|GetOriginX|GetOriginY|ClipOutput|BackColor|DrawImage|TextWidth|SetOrigin|RoundBox|FillArea|DrawText|Ellipse|Circle|LineXY|Green|Alpha|Point|Blue|RGBA|Line|Plot|Red|RGB|Box)(?=\\s*\\()"
+        },
+        {
+          "comment": "Image functions",
+          "name": "support.function.image.purebasic",
+          "match": "(?i)\\b(GetImageFrameDelay|SetImageFrameDelay|ImageVectorOutput|RemoveImageFrame|ImageFrameCount|AddImageFrame|GetImageFrame|SetImageFrame|CreateImage|EncodeImage|ImageFormat|ImageHeight|ImageOutput|ResizeImage|CatchImage|ImageDepth|ImageWidth|CopyImage|FreeImage|GrabImage|LoadImage|SaveImage|ImageID|IsImage)(?=\\s*\\()"
+        },
+        {
+          "comment": "Font functions",
+          "name": "support.function.image.purebasic",
+          "match": "(?i)\\b(RegisterFontFile|FreeFont|LoadFont|FontID|IsFont)(?=\\s*\\()"
+        },
+        {
+          "comment": "Screen functions",
+          "name": "support.function.image.purebasic",
+          "match": "(?i)\\b(ScreenModeRefreshRate|OpenWindowedScreen|ExamineScreenModes|ScreenModeHeight|ScreenModeDepth|ScreenModeWidth|IsScreenActive|NextScreenMode|ScreenHeight|SetFrameRate|ScreenOutput|ChangeGamma|ClearScreen|CloseScreen|FlipBuffers|ScreenWidth|ScreenDepth|OpenScreen|ScreenID)(?=\\s*\\()"
+        },
+        {
+          "comment": "Sprite functions",
+          "name": "support.function.image.purebasic",
+          "match": "(?i)\\b(DisplayTransparentSprite|TransparentSpriteColor|SpritePixelCollision|SpriteBlendingMode|SpriteCollision|TransformSprite|DisplaySprite|SpriteQuality|CreateSprite|SpriteHeight|SpriteOutput|RotateSprite|CatchSprite|SpriteDepth|SpriteWidth|ClipSprite|CopySprite|FreeSprite|GrabSprite|InitSprite|LoadSprite|SaveSprite|ZoomSprite|IsSprite|SpriteID)(?=\\s*\\()"
+        },
+        {
+          "comment": "Thread functions",
+          "name": "support.function.thread.purebasic",
+          "match": "(?i)\\b(CreateSemaphore|SignalSemaphore|ThreadPriority|FreeSemaphore|WaitSemaphore|CreateThread|ResumeThread|TryLockMutex|TrySemaphore|CreateMutex|PauseThread|UnlockMutex|KillThread|WaitThread|FreeMutex|LockMutex|IsThread|ThreadID)(?=\\s*\\()"
+        },
+        {
+          "comment": "Network functions",
+          "name": "support.function.network.purebasic",
+          "match": "(?i)\\b(CloseNetworkConnection|OpenNetworkConnection|CreateNetworkServer|CloseNetworkServer|ExamineIPAddresses|NetworkClientEvent|NetworkServerEvent|ReceiveNetworkData|SendNetworkString|SendNetworkData|IPAddressField|MakeIPAddress|GetClientPort|NextIPAddress|UseNetworkTLS|ConnectionID|EventServer|EventClient|GetClientIP|ServerID|HostName|IPString|FreeIP)(?=\\s*\\()"
+        },
+        {
+          "comment": "Process functions",
+          "name": "support.function.system.purebasic",
+          "match": "(?i)\\b(ExamineEnvironmentVariables|RemoveEnvironmentVariable|EnvironmentVariableValue|EnvironmentVariableName|NextEnvironmentVariable|AvailableProgramOutput|CountProgramParameters|GetEnvironmentVariable|SetEnvironmentVariable|WriteProgramStringN|WriteProgramString|ReadProgramString|ProgramParameter|ReadProgramError|WriteProgramData|ProgramExitCode|ProgramFilename|ReadProgramData|ProgramRunning|CloseProgram|KillProgram|WaitProgram|RunProgram|IsProgram|ProgramID)(?=\\s*\\()"
+        },
+        {
+          "comment": "System functions",
+          "name": "support.function.system.purebasic",
+          "match": "(?i)\\b(ElapsedMilliseconds|DoubleClickTime|CocoaMessage|ComputerName|MemoryStatus|OSVersion|CountCPUs|UserName|CPUName|Delay)(?=\\s*\\()"
+        },
+        {
+          "comment": "Desktop functions",
+          "name": "support.function.system.purebasic",
+          "match": "(?i)\\b(DesktopResolutionX|DesktopResolutionY|DesktopUnscaledX|DesktopUnscaledY|DesktopFrequency|ExamineDesktops|DesktopScaledX|DesktopScaledY|DesktopHeight|DesktopMouseX|DesktopMouseY|DesktopDepth|DesktopWidth|DesktopName|DesktopX|DesktopY)(?=\\s*\\()"
+        },
+        {
+          "comment": "Database functions",
+          "name": "support.function.database.purebasic",
+          "match": "(?i)\\b(DatabaseDriverDescription|ExamineDatabaseDrivers|OpenDatabaseRequester|UsePostgreSQLDatabase|AffectedDatabaseRows|DatabaseColumnIndex|FinishDatabaseQuery|PreviousDatabaseRow|DatabaseColumnName|DatabaseColumnSize|DatabaseColumnType|DatabaseDriverName|NextDatabaseDriver|GetDatabaseDouble|GetDatabaseString|CheckDatabaseNull|UseSQLiteDatabase|SetDatabaseString|SetDatabaseDouble|FirstDatabaseRow|GetDatabaseFloat|UseMySQLDatabase|SetDatabaseFloat|DatabaseColumns|GetDatabaseBlob|GetDatabaseLong|GetDatabaseQuad|NextDatabaseRow|SetDatabaseBlob|UseODBCDatabase|SetDatabaseLong|SetDatabaseQuad|SetDatabaseNull|DatabaseUpdate|CloseDatabase|DatabaseError|DatabaseQuery|OpenDatabase|DatabaseID|IsDatabase)(?=\\s*\\()"
+        },
+        {
+          "comment": "Json functions",
+          "name": "support.function.data.purebasic",
+          "match": "(?i)\\b(ExtractJSONStructure|InsertJSONStructure|ExamineJSONMembers|ResizeJSONElements|ClearJSONElements|JSONErrorPosition|RemoveJSONElement|ClearJSONMembers|ExtractJSONArray|JSONErrorMessage|RemoveJSONMember|ExtractJSONList|InsertJSONArray|JSONMemberValue|AddJSONElement|ExportJSONSize|ExtractJSONMap|GetJSONBoolean|GetJSONElement|GetJSONInteger|InsertJSONList|JSONObjectSize|NextJSONMember|SetJSONBoolean|SetJSONInteger|AddJSONMember|GetJSONDouble|GetJSONMember|GetJSONString|InsertJSONMap|JSONArraySize|JSONErrorLine|JSONMemberKey|SetJSONDouble|SetJSONObject|SetJSONString|GetJSONFloat|SetJSONArray|SetJSONFloat|ComposeJSON|GetJSONQuad|SetJSONNull|SetJSONQuad|CreateJSON|ExportJSON|CatchJSON|JSONValue|ParseJSON|FreeJSON|JSONType|LoadJSON|SaveJSON|IsJSON)(?=\\s*\\()"
+        },
+        {
+          "comment": "XML functions",
+          "name": "support.function.data.purebasic",
+          "match": "(?i)\\b(ResolveXMLAttributeName|ExamineXMLAttributes|ExtractXMLStructure|RemoveXMLAttribute|ResolveXMLNodeName|InsertXMLStructure|XMLAttributeValue|XMLErrorPosition|GetXMLStandalone|SetXMLStandalone|GetXMLNodeOffset|SetXMLNodeOffset|NextXMLAttribute|XMLAttributeName|PreviousXMLNode|XMLNodeFromPath|GetXMLAttribute|SetXMLAttribute|ExtractXMLArray|GetXMLEncoding|SetXMLEncoding|GetXMLNodeText|SetXMLNodeText|GetXMLNodeName|SetXMLNodeName|InsertXMLArray|ExtractXMLList|ExportXMLSize|ParentXMLNode|XMLChildCount|XMLNodeFromID|CreateXMLNode|DeleteXMLNode|InsertXMLList|ExtractXMLMap|XMLErrorLine|ChildXMLNode|InsertXMLMap|RootXMLNode|MainXMLNode|NextXMLNode|XMLNodeType|XMLNodePath|CopyXMLNode|MoveXMLNode|ComposeXML|CreateXML|XMLStatus|ExportXML|FormatXML|CatchXML|ParseXML|XMLError|FreeXML|LoadXML|SaveXML|IsXML)(?=\\s*\\()"
+        },
+        {
+          "comment": "RegularExpression functions",
+          "name": "support.function.data.purebasic",
+          "match": "(?i)\\b(RegularExpressionNamedGroupPosition|RegularExpressionNamedGroupLength|RegularExpressionMatchPosition|RegularExpressionGroupPosition|CountRegularExpressionGroups|RegularExpressionMatchString|RegularExpressionMatchLength|RegularExpressionGroupLength|RegularExpressionNamedGroup|NextRegularExpressionMatch|ExamineRegularExpression|ExtractRegularExpression|ReplaceRegularExpression|CreateRegularExpression|MatchRegularExpression|RegularExpressionGroup|RegularExpressionError|FreeRegularExpression|IsRegularExpression)(?=\\s*\\()"
+        },
+        {
+          "comment": "Cipher functions",
+          "name": "support.function.data.purebasic",
+          "match": "(?i)\\b(AddFingerprintBuffer|UseCRC32Fingerprint|Base64DecoderBuffer|Base64EncoderBuffer|CreatePasswordHash|VerifyPasswordHash|UseSHA1Fingerprint|UseSHA2Fingerprint|UseSHA3Fingerprint|FinishFingerprint|StringFingerprint|UseMD5Fingerprint|StartFingerprint|CloseCryptRandom|AddCipherBuffer|DeriveCipherKey|FileFingerprint|OpenCryptRandom|CryptRandomData|DESFingerprint|StartAESCipher|IsFingerprint|Base64Decoder|Base64Encoder|FinishCipher|Fingerprint|CryptRandom|AESEncoder|AESDecoder|IsCipher)(?=\\s*\\()"
+        },
+        {
+          "comment": "Packer functions",
+          "name": "support.function.data.purebasic",
+          "match": "(?i)\\b(UncompressPackMemory|UncompressPackFile|AddPackDirectory|UncompressMemory|UseBriefLZPacker|UseJcalg1Packer|CompressMemory|AddPackMemory|NextPackEntry|PackEntryDate|PackEntryType|PackEntrySize|PackEntryName|UseLzmaPacker|UseZipPacker|UseTarPacker|AddPackFile|ExaminePack|CreatePack|ClosePack|CatchPack|OpenPack|IsPack)(?=\\s*\\()"
+        },
+        {
+          "comment": "Clipboard functions",
+          "name": "support.function.requester.purebasic",
+          "match": "(?i)\\b(GetClipboardImage|SetClipboardImage|GetClipboardText|SetClipboardText|ClearClipboard)(?=\\s*\\()"
+        },
+        {
+          "comment": "Http functions",
+          "name": "support.function.network.purebasic",
+          "match": "(?i)\\b(ReceiveHTTPMemory|HTTPRequestMemory|ReceiveHTTPFile|HTTPProgress|HTTPTimeout|HTTPRequest|FinishHTTP|GetURLPart|HTTPMemory|URLDecoder|URLEncoder|SetURLPart|AbortHTTP|HTTPProxy|HTTPInfo)(?=\\s*\\()"
+        },
+        {
+          "comment": "Ftp functions",
+          "name": "support.function.network.purebasic",
+          "match": "(?i)\\b(FTPDirectoryEntryAttributes|FTPDirectoryEntryDate|FTPDirectoryEntryName|FTPDirectoryEntryType|FTPDirectoryEntrySize|NextFTPDirectoryEntry|FTPDirectoryEntryRaw|ExamineFTPDirectory|CheckFTPConnection|CreateFTPDirectory|DeleteFTPDirectory|FinishFTPDirectory|GetFTPDirectory|SetFTPDirectory|ReceiveFTPFile|DeleteFTPFile|RenameFTPFile|AbortFTPFile|FTPProgress|SendFTPFile|CloseFTP|OpenFTP|IsFtp)(?=\\s*\\()"
+        },
+        {
+          "comment": "Mail functions",
+          "name": "support.function.network.purebasic",
+          "match": "(?i)\\b(AddMailAttachmentData|RemoveMailRecipient|AddMailAttachment|AddMailRecipient|GetMailAttribute|SetMailAttribute|MailProgress|GetMailBody|SetMailBody|CreateMail|FreeMail|SendMail|IsMail)(?=\\s*\\()"
+        },
+        {
+          "comment": "Debugger functions",
+          "name": "support.function.debug.purebasic",
+          "match": "(?i)\\b(PurifierGranularity|ShowVariableViewer|ShowAssemblyViewer|ShowLibraryViewer|CloseDebugOutput|ClearDebugOutput|ShowMemoryViewer|CopyDebugOutput|ShowDebugOutput|DebuggerWarning|SaveDebugOutput|DebuggerError|ResetProfiler|StartProfiler|ShowWatchlist|ShowCallstack|ShowProfiler|StopProfiler)(?=\\s*\\()"
+        },
+        {
+          "comment": "Preference functions",
+          "name": "support.function.data.purebasic",
+          "match": "(?i)\\b(ExaminePreferenceGroups|FlushPreferenceBuffers|WritePreferenceInteger|ExaminePreferenceKeys|ReadPreferenceInteger|RemovePreferenceGroup|WritePreferenceDouble|WritePreferenceString|ReadPreferenceDouble|ReadPreferenceString|WritePreferenceFloat|NextPreferenceGroup|PreferenceGroupName|ReadPreferenceFloat|RemovePreferenceKey|WritePreferenceLong|WritePreferenceQuad|PreferenceKeyValue|ReadPreferenceLong|ReadPreferenceQuad|CreatePreferences|NextPreferenceKey|PreferenceKeyName|PreferenceComment|ClosePreferences|OpenPreferences|PreferenceGroup)(?=\\s*\\()"
+        },
+        {
+          "comment": "Requester functions",
+          "name": "support.function.requester.purebasic",
+          "match": "(?i)\\b(NextSelectedFilename|SelectedFilePattern|OpenFileRequester|SaveFileRequester|SelectedFontColor|SelectedFontStyle|MessageRequester|SelectedFontName|SelectedFontSize|ColorRequester|InputRequester|FontRequester|PathRequester)(?=\\s*\\()"
+        },
+        {
+          "comment": "OnError functions",
+          "name": "support.function.debug.purebasic",
+          "match": "(?i)\\b(ErrorTargetAddress|InstructionAddress|InstructionString|ExamineAssembly|NextInstruction|OnErrorDefault|ErrorRegister|ErrorMessage|ErrorAddress|OnErrorExit|OnErrorCall|OnErrorGoto|RaiseError|ErrorCode|ErrorLine|ErrorFile)(?=\\s*\\()"
+        },
+        {
+          "comment": "StatusBar functions",
+          "name": "support.function.window.purebasic",
+          "match": "(?i)\\b(AddStatusBarField|StatusBarProgress|CreateStatusBar|StatusBarHeight|StatusBarImage|FreeStatusBar|StatusBarText|IsStatusBar|StatusBarID)(?=\\s*\\()"
+        },
+        {
+          "comment": "ToolBar functions",
+          "name": "support.function.window.purebasic",
+          "match": "(?i)\\b(GetToolBarButtonState|SetToolBarButtonState|DisableToolBarButton|ToolBarImageButton|ToolBarButtonText|ToolBarSeparator|ToolBarToolTip|CreateToolBar|ToolBarHeight|FreeToolBar|IsToolBar|ToolBarID)(?=\\s*\\()"
+        },
+        {
+          "comment": "SysTray functions",
+          "name": "support.function.system.purebasic",
+          "match": "(?i)\\b(SysTrayIconToolTip|ChangeSysTrayIcon|RemoveSysTrayIcon|SysTrayIconMenu|AddSysTrayIcon|IsSysTrayIcon)(?=\\s*\\()"
+        },
+        {
+          "comment": "Keyboard functions",
+          "name": "support.function.input.purebasic",
+          "match": "(?i)\\b(KeyboardReleased|ExamineKeyboard|KeyboardPushed|KeyboardInkey|InitKeyboard|KeyboardMode)(?=\\s*\\()"
+        },
+        {
+          "comment": "Mouse functions",
+          "name": "support.function.input.purebasic",
+          "match": "(?i)\\b(ExamineMouse|ReleaseMouse|MouseButton|MouseDeltaX|MouseDeltaY|MouseLocate|MouseWheel|InitMouse|MouseX|MouseY)(?=\\s*\\()"
+        },
+        {
+          "comment": "Joystick functions",
+          "name": "support.function.input.purebasic",
+          "match": "(?i)\\b(ExamineJoystick|JoystickButton|JoystickAxisX|JoystickAxisY|JoystickAxisZ|InitJoystick|JoystickName)(?=\\s*\\()"
+        },
+        {
+          "comment": "Sound functions",
+          "name": "support.function.media.purebasic",
+          "match": "(?i)\\b(GetSoundFrequency|SetSoundFrequency|GetSoundPosition|SetSoundPosition|ResumeSound|SoundStatus|SoundLength|SoundVolume|CatchSound|PauseSound|FreeSound|InitSound|LoadSound|PlaySound|StopSound|SoundPan|IsSound)(?=\\s*\\()"
+        },
+        {
+          "comment": "Music functions",
+          "name": "support.function.media.purebasic",
+          "match": "(?i)\\b(GetMusicPosition|SetMusicPosition|GetMusicRow|MusicVolume|CatchMusic|FreeMusic|LoadMusic|PlayMusic|StopMusic|IsMusic)(?=\\s*\\()"
+        },
+        {
+          "comment": "AudioCD functions",
+          "name": "support.function.media.purebasic",
+          "match": "(?i)\\b(AudioCDTrackSeconds|AudioCDTrackLength|AudioCDLength|AudioCDStatus|AudioCDTracks|ResumeAudioCD|EjectAudioCD|PauseAudioCD|AudioCDName|InitAudioCD|PlayAudioCD|StopAudioCD|UseAudioCD)(?=\\s*\\()"
+        },
+        {
+          "comment": "Movie functions",
+          "name": "support.function.media.purebasic",
+          "match": "(?i)\\b(MovieHeight|MovieLength|MovieStatus|ResizeMovie|ResumeMovie|MovieAudio|MovieWidth|PauseMovie|FreeMovie|InitMovie|LoadMovie|MovieInfo|MovieSeek|PlayMovie|StopMovie|IsMovie)(?=\\s*\\()"
+        },
+        {
+          "comment": "WebView functions",
+          "name": "support.function.web.purebasic",
+          "match": "(?i)\\b(UnbindWebViewCallback|WebViewExecuteScript|BindWebViewCallback|WebViewGadget|WebViewProxy)(?=\\s*\\()"
+        },
+        {
+          "comment": "Library functions",
+          "name": "support.function.system.purebasic",
+          "match": "(?i)\\b(ExamineLibraryFunctions|LibraryFunctionAddress|CountLibraryFunctions|LibraryFunctionName|NextLibraryFunction|CallCFunctionFast|CallFunctionFast|GetFunctionEntry|CallCFunction|CloseLibrary|CallFunction|GetFunction|OpenLibrary|IsLibrary|LibraryID)(?=\\s*\\()"
+        },
+        {
+          "comment": "SerialPort functions",
+          "name": "support.function.io.purebasic",
+          "match": "(?i)\\b(AvailableSerialPortOutput|AvailableSerialPortInput|WriteSerialPortString|GetSerialPortStatus|SetSerialPortStatus|WriteSerialPortData|ReadSerialPortData|SerialPortTimeouts|CloseSerialPort|SerialPortError|OpenSerialPort|IsSerialPort|SerialPortID)(?=\\s*\\()"
+        },
+        {
+          "comment": "Dialog functions",
+          "name": "support.function.window.purebasic",
+          "match": "(?i)\\b(UseDialogScintillaGadget|UseDialogWebViewGadget|UseDialogOpenGLGadget|UseDialogWebGadget|OpenXMLDialog|RefreshDialog|CreateDialog|DialogGadget|DialogWindow|DialogError|FreeDialog|DialogID|IsDialog)(?=\\s*\\()"
+        },
+        {
+          "comment": "Runtime functions",
+          "name": "support.function.debug.purebasic",
+          "match": "(?i)\\b(GetRuntimeInteger|SetRuntimeInteger|GetRuntimeDouble|GetRuntimeString|SetRuntimeDouble|SetRuntimeString|IsRuntime)(?=\\s*\\()"
+        },
+        {
+          "comment": "VectorDrawing functions",
+          "name": "support.function.drawing.purebasic",
+          "match": "(?i)\\b(VectorSourceCircularGradient|VectorSourceLinearGradient|VectorSourceGradientColor|VectorParagraphHeight|TranslateCoordinates|DrawVectorParagraph|StartVectorDrawing|VectorOutputHeight|RestoreVectorState|ConvertCoordinateX|ConvertCoordinateY|StopVectorDrawing|VectorOutputWidth|VectorResolutionX|VectorResolutionY|RotateCoordinates|VectorSourceColor|VectorSourceImage|BeginVectorLayer|FillVectorOutput|ResetCoordinates|ScaleCoordinates|FlipCoordinatesX|FlipCoordinatesY|PathBoundsHeight|VectorTextHeight|SaveVectorState|SkewCoordinates|AddPathSegments|PathBoundsWidth|DrawVectorImage|VectorTextWidth|PdfVectorOutput|SvgVectorOutput|EndVectorLayer|MovePathCursor|AddPathEllipse|IsInsideStroke|CustomDashPath|PathPointAngle|DrawVectorText|NewVectorPage|AddPathCircle|AddPathCurve|IsInsidePath|PathSegments|AddPathLine|AddPathText|IsPathEmpty|PathCursorX|PathCursorY|PathBoundsX|PathBoundsY|VectorUnit|AddPathArc|AddPathBox|StrokePath|PathPointX|PathPointY|PathLength|VectorFont|ResetPath|ClosePath|DashPath|FillPath|ClipPath|DotPath)(?=\\s*\\()"
+        }
+      ]
+    },
+    "pb-constants": {
+      "patterns": [
+        {
+          "name": "constant.language.boolean.purebasic",
+          "match": "\\b(#True|#False|#Null|#Empty|#NUL|#LF|#CR|#TAB|#CRLF)\\b"
+        }
+      ]
+    },
+    "user-constants": {
+      "name": "constant.other.purebasic",
+      "match": "#[a-zA-Z_][a-zA-Z0-9_]*"
+    },
+    "operators": {
+      "name": "keyword.operator.purebasic",
+      "match": "\\+|-|\\*|/|\\\\|%|=|<>|<=|>=|<<|>>|[<>]|!|&|\\||\\^|~|@|\\?"
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.purebasic",
+          "match": "\\$[0-9A-Fa-f]+"
+        },
+        {
+          "name": "constant.numeric.binary.purebasic",
+          "match": "%[01]+"
+        },
+        {
+          "name": "constant.numeric.float.purebasic",
+          "match": "\\b[0-9]+\\.[0-9]*(?:[eE][+-]?[0-9]+)?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.purebasic",
+          "match": "\\b[0-9]+\\b"
+        }
+      ]
+    },
+    "types": {
+      "name": "storage.type.purebasic",
+      "match": "\\.(b|a|w|u|l|i|q|f|d|s|c|String)\\b"
+    },
+    "labels": {
+      "patterns": [
+        {
+          "name": "entity.name.label.purebasic",
+          "match": "^\\s*[a-zA-Z_][a-zA-Z0-9_]*:"
+        },
+        {
+          "name": "entity.name.label.purebasic",
+          "match": "\\b(Goto|Gosub)\\s+([a-zA-Z_][a-zA-Z0-9_]*)",
+          "captures": {
+            "2": {
+              "name": "entity.name.label.purebasic"
+            }
+          }
+        }
+      ]
+    },
+    "procedure-call": {
+      "name": "entity.name.function.purebasic",
+      "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)(?=\\s*\\()"
+    },
+    "variables": {
+      "name": "variable.other.purebasic",
+      "match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\b"
+    }
+  }
+}
