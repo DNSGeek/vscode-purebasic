@@ -32,8 +32,11 @@ export class CompilerService {
 
     const extraArgs = cfg.get<string[]>('compilerArgs', []);
     const outputFile = this.getOutputPath(filePath);
-    const args: string[] = [filePath, '--exe', outputFile, ...extraArgs];
-    if (run) { args.push('--run'); }
+    // The Windows compilers (pbcompiler.exe / pbcompilerc.exe) use "/EXE",
+    // while Linux/macOS use "--executable". Neither has a "run" switch, so the
+    // executable is launched separately after a successful compile.
+    const exeSwitch = process.platform === 'win32' ? '/EXE' : '--executable';
+    const args: string[] = [filePath, exeSwitch, outputFile, ...extraArgs];
 
     this.outputChannel.clear();
     this.outputChannel.show(true);
@@ -91,6 +94,7 @@ export class CompilerService {
             if (code === 0) {
               this.outputChannel.appendLine(`\n✅ Compilation successful → ${outputFile}`);
               vscode.window.setStatusBarMessage('PureBasic: Compiled successfully ✅', 5000);
+              if (run) { this.runExecutable(outputFile); }
             } else {
               this.outputChannel.appendLine(`\n❌ Compilation failed (exit code ${code})`);
               vscode.window.setStatusBarMessage('PureBasic: Compilation failed ❌', 5000);
@@ -106,6 +110,24 @@ export class CompilerService {
         });
       }
     );
+  }
+
+  private runExecutable(exePath: string): void {
+    this.outputChannel.appendLine(`\n▶ Running: ${path.basename(exePath)}\n`);
+
+    const proc = cp.spawn(exePath, [], { cwd: path.dirname(exePath) });
+
+    proc.stdout?.on('data', (data: Buffer) => this.outputChannel.append(data.toString()));
+    proc.stderr?.on('data', (data: Buffer) => this.outputChannel.append(data.toString()));
+
+    proc.on('close', (code) => {
+      this.outputChannel.appendLine(`\n■ Program exited (exit code ${code})`);
+    });
+
+    proc.on('error', (err) => {
+      this.outputChannel.appendLine(`\n❌ Failed to run program: ${err.message}`);
+      vscode.window.showErrorMessage(`PureBasic: failed to run program: ${err.message}`);
+    });
   }
 
   private parseCompilerOutput(
@@ -171,6 +193,8 @@ export class CompilerService {
       candidates.push(
         'C:\\Program Files\\PureBasic\\Compilers\\pbcompiler.exe',
         'C:\\Program Files (x86)\\PureBasic\\Compilers\\pbcompiler.exe',
+        'C:\\Program Files\\PureBasic\\Compilers\\pbcompilerc.exe',
+        'C:\\Program Files (x86)\\PureBasic\\Compilers\\pbcompilerc.exe',
       );
     } else if (process.platform === 'darwin') {
       candidates.push(
