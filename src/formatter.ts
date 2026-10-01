@@ -1,49 +1,71 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 // Keywords that increase indent after them
 const INDENT_AFTER = new Set([
-  'if', 'else', 'elseif',
-  'for', 'foreach',
-  'while',
-  'repeat',
-  'select', 'case', 'default',
-  'procedure', 'procedurec', 'proceduredll', 'procedurecdll',
-  'structure', 'structureunion',
-  'interface',
-  'macro',
-  'module', 'declaremodule',
-  'compileri', 'compilerelse', 'compilerelseif',
-  'with',
-  'datasection',
+  "if",
+  "else",
+  "elseif",
+  "for",
+  "foreach",
+  "while",
+  "repeat",
+  "select",
+  "case",
+  "default",
+  "procedure",
+  "procedurec",
+  "proceduredll",
+  "procedurecdll",
+  "structure",
+  "structureunion",
+  "interface",
+  "macro",
+  "module",
+  "declaremodule",
+  "compileri",
+  "compilerelse",
+  "compilerelseif",
+  "with",
+  "datasection",
 ]);
 
 // Keywords that reduce indent (they end a block)
 const DEDENT_BEFORE = new Set([
-  'endif', 'next', 'wend', 'forever', 'until',
-  'endselect',
-  'endprocedure',
-  'endstructure', 'endstructureunion',
-  'endinterface',
-  'endmacro',
-  'endmodule', 'enddeclaremodule',
-  'compilerendif',
-  'endwith',
-  'enddatasection',
-  'else', 'elseif',
-  'compilerelse', 'compilerelseif',
-  'case', 'default',
+  "endif",
+  "next",
+  "wend",
+  "forever",
+  "until",
+  "endselect",
+  "endprocedure",
+  "endstructure",
+  "endstructureunion",
+  "endinterface",
+  "endmacro",
+  "endmodule",
+  "enddeclaremodule",
+  "compilerendif",
+  "endwith",
+  "enddatasection",
+  "else",
+  "elseif",
+  "compilerelse",
+  "compilerelseif",
+  "case",
+  "default",
 ]);
 
-export class PureBasicFormatter implements vscode.DocumentFormattingEditProvider {
-
+export class PureBasicFormatter
+  implements vscode.DocumentFormattingEditProvider
+{
   provideDocumentFormattingEdits(
     document: vscode.TextDocument,
     options: vscode.FormattingOptions,
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ): vscode.TextEdit[] {
-    const cfg = vscode.workspace.getConfiguration('purebasic');
-    const indentSize = cfg.get<number>('indentSize', 2);
-    const indentChar = options.insertSpaces ? ' '.repeat(indentSize) : '\t';
+    const cfg = vscode.workspace.getConfiguration("purebasic");
+    const indentSize = cfg.get<number>("indentSize", 2);
+    const indentChar = options.insertSpaces ? " ".repeat(indentSize) : "\t";
     const edits: vscode.TextEdit[] = [];
 
     let level = 0;
@@ -54,7 +76,7 @@ export class PureBasicFormatter implements vscode.DocumentFormattingEditProvider
       const trimmed = original.trim();
 
       // Skip blank lines and pure comment lines
-      if (!trimmed || trimmed.startsWith(';')) {
+      if (!trimmed || trimmed.startsWith(";")) {
         continue;
       }
 

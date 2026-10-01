@@ -16,7 +16,11 @@
     "Snippets",
     "Formatters"
   ],
-  "keywords": ["purebasic", "basic", "pb"],
+  "keywords": [
+    "purebasic",
+    "basic",
+    "pb"
+  ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "icon": "icon.png",
@@ -24,8 +28,17 @@
     "languages": [
       {
         "id": "purebasic",
-        "aliases": ["PureBasic", "purebasic", "pb"],
-        "extensions": [".pb", ".pbi", ".pbf", ".pbp"],
+        "aliases": [
+          "PureBasic",
+          "purebasic",
+          "pb"
+        ],
+        "extensions": [
+          ".pb",
+          ".pbi",
+          ".pbf",
+          ".pbp"
+        ],
         "configuration": "./language-configuration.json",
         "icon": {
           "light": "./icons/purebasic-light.svg",
@@ -57,7 +70,9 @@
         },
         "purebasic.compilerArgs": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "default": [],
           "description": "Extra arguments to pass to the compiler"
         },
@@ -135,7 +150,9 @@
       {
         "name": "pbcompiler",
         "owner": "purebasic",
-        "fileLocation": ["absolute"],
+        "fileLocation": [
+          "absolute"
+        ],
         "pattern": {
           "regexp": "^Error: (.+) Line (\\d+).*: (.+)$",
           "file": 1,
@@ -147,7 +164,9 @@
     "taskDefinitions": [
       {
         "type": "purebasic",
-        "required": ["task"],
+        "required": [
+          "task"
+        ],
         "properties": {
           "task": {
             "type": "string",

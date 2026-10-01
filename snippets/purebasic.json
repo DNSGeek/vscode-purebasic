@@ -1,11 +1,7 @@
 {
   "Procedure": {
     "prefix": ["proc", "procedure"],
-    "body": [
-      "Procedure${1: }${2:MyProcedure}(${3:})",
-      "\t$0",
-      "EndProcedure"
-    ],
+    "body": ["Procedure${1: }${2:MyProcedure}(${3:})", "\t$0", "EndProcedure"],
     "description": "Define a new Procedure"
   },
   "ProcedureWithReturn": {
@@ -20,31 +16,17 @@
   },
   "If": {
     "prefix": "if",
-    "body": [
-      "If ${1:condition}",
-      "\t$0",
-      "EndIf"
-    ],
+    "body": ["If ${1:condition}", "\t$0", "EndIf"],
     "description": "If block"
   },
   "IfElse": {
     "prefix": "ife",
-    "body": [
-      "If ${1:condition}",
-      "\t$2",
-      "Else",
-      "\t$0",
-      "EndIf"
-    ],
+    "body": ["If ${1:condition}", "\t$2", "Else", "\t$0", "EndIf"],
     "description": "If/Else block"
   },
   "For": {
     "prefix": "for",
-    "body": [
-      "For ${1:i} = ${2:0} To ${3:10}",
-      "\t$0",
-      "Next ${1:i}"
-    ],
+    "body": ["For ${1:i} = ${2:0} To ${3:10}", "\t$0", "Next ${1:i}"],
     "description": "For/Next loop"
   },
   "ForStep": {
@@ -58,38 +40,22 @@
   },
   "ForEach": {
     "prefix": "foreach",
-    "body": [
-      "ForEach ${1:MyList()}",
-      "\t$0",
-      "Next"
-    ],
+    "body": ["ForEach ${1:MyList()}", "\t$0", "Next"],
     "description": "ForEach loop"
   },
   "While": {
     "prefix": "while",
-    "body": [
-      "While ${1:condition}",
-      "\t$0",
-      "Wend"
-    ],
+    "body": ["While ${1:condition}", "\t$0", "Wend"],
     "description": "While/Wend loop"
   },
   "Repeat": {
     "prefix": "repeat",
-    "body": [
-      "Repeat",
-      "\t$0",
-      "Until ${1:condition}"
-    ],
+    "body": ["Repeat", "\t$0", "Until ${1:condition}"],
     "description": "Repeat/Until loop"
   },
   "RepeatForever": {
     "prefix": "forever",
-    "body": [
-      "Repeat",
-      "\t$0",
-      "ForEver"
-    ],
+    "body": ["Repeat", "\t$0", "ForEver"],
     "description": "Infinite Repeat/ForEver loop"
   },
   "Select": {
@@ -140,11 +106,7 @@
   },
   "Macro": {
     "prefix": "macro",
-    "body": [
-      "Macro ${1:MyMacro}(${2:})",
-      "\t$0",
-      "EndMacro"
-    ],
+    "body": ["Macro ${1:MyMacro}(${2:})", "\t$0", "EndMacro"],
     "description": "Macro definition"
   },
   "NewList": {
