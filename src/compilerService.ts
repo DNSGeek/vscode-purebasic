@@ -33,9 +33,11 @@ export class CompilerService {
     const extraArgs = cfg.get<string[]>('compilerArgs', []);
     const outputFile = this.getOutputPath(filePath);
     // The Windows compilers (pbcompiler.exe / pbcompilerc.exe) use "/EXE",
-    // while Linux/macOS use "--executable". Neither has a "run" switch, so the
-    // executable is launched separately after a successful compile.
-    const exeSwitch = process.platform === 'win32' ? '/EXE' : '--executable';
+    // while Linux/macOS take "-o" (documented as "--output"). "--executable" is
+    // an undocumented alias that happens to work on 6.41, so it is not used
+    // here. Neither has a "run" switch, so the executable is launched
+    // separately after a successful compile.
+    const exeSwitch = process.platform === 'win32' ? '/EXE' : '-o';
     const args: string[] = [filePath, exeSwitch, outputFile, ...extraArgs];
 
     this.outputChannel.clear();
